@@ -7,22 +7,22 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    # Giải nén ZIP nếu có, rồi đưa source ra root
     - name: Prepare project
       shell: bash
       run: |
-        set -e
+        set -euxo pipefail
         ls -la
-        ZIP=$(ls -1 *.zip 2>/dev/null | head -n1 || true)
-        if [ -n "$ZIP" ]; then
-          unzip -qo "$ZIP"
+        ZIP="$(ls -1 *.zip 2>/dev/null | head -n1 || true)"
+        if [ -n "$ZIP" ]; then unzip -qo "$ZIP"; fi
+        # Nếu settings.gradle nằm trong thư mục con thì dời ra root
+        if [ ! -f settings.gradle ] && [ ! -f settings.gradle.kts ]; then
+          CAND=$(find . -maxdepth 2 -type f \( -name settings.gradle -o -name settings.gradle.kts \) -printf '%h\n' | head -n1 || true)
+          if [ -n "$CAND" ] && [ "$CAND" != "." ]; then
+            shopt -s dotglob; mv "$CAND"/* .; rm -rf "$CAND"
+          fi
         fi
-        if [ -d InventoryLiteFixed ]; then
-          shopt -s dotglob
-          mv InventoryLiteFixed/* .
-          rm -rf InventoryLiteFixed
-        fi
-        echo "After prepare:"; ls -la
+        test -f settings.gradle -o -f settings.gradle.kts
+        test -d app
 
     - uses: actions/setup-java@v4
       with:
@@ -36,7 +36,6 @@ jobs:
         yes | sdkmanager --licenses
         sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
 
-    # Tạo Gradle wrapper bằng Gradle Build Action (không cần gradle/gradlew sẵn)
     - name: Generate Gradle wrapper 8.6
       uses: gradle/gradle-build-action@v3
       with:
@@ -44,7 +43,6 @@ jobs:
         build-root-directory: .
         arguments: wrapper
 
-    # Build APK
     - name: Build debug APK
       uses: gradle/gradle-build-action@v3
       with:
