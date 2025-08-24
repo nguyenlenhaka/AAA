@@ -7,20 +7,26 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Prepare project and detect dir
+    - name: Debug workflow file
+      run: |
+        pwd; ls -la
+        echo "Search for hard-coded dir:"; grep -R "InventoryLiteFixed" -n . || true
+
+    - name: Prepare project
       shell: bash
       run: |
         set -euxo pipefail
-        ls -la
-        # Unzip nếu repo chỉ có 1 file zip
+        # Unzip nếu repo đang chứa file zip
         ZIP=$(ls -1 *.zip 2>/dev/null | head -n1 || true)
         if [ -n "$ZIP" ]; then unzip -qo "$ZIP"; fi
-        # Tìm thư mục có settings.gradle
+        # Nếu settings.gradle nằm trong thư mục con thì đưa ra root
         CAND=$(find . -maxdepth 2 -type f \( -name settings.gradle -o -name settings.gradle.kts \) -printf '%h\n' | head -n1 || true)
-        if [ -z "$CAND" ]; then echo "Không thấy settings.gradle"; exit 1; fi
-        echo "PROJECT_DIR=$CAND" >> "$GITHUB_ENV"
-        echo "Project dir: $CAND"
-        ls -la "$CAND"
+        if [ -n "$CAND" ] && [ "$CAND" != "." ]; then
+          shopt -s dotglob; mv "$CAND"/* .; rm -rf "$CAND"
+        fi
+        test -f settings.gradle -o -f settings.gradle.kts
+        test -d app
+        ls -la
 
     - uses: actions/setup-java@v4
       with:
@@ -38,17 +44,17 @@ jobs:
       uses: gradle/gradle-build-action@v3
       with:
         gradle-version: 8.6
-        build-root-directory: ${{ env.PROJECT_DIR }}
+        build-root-directory: .
         arguments: wrapper
 
     - name: Build debug APK
       uses: gradle/gradle-build-action@v3
       with:
-        build-root-directory: ${{ env.PROJECT_DIR }}
+        build-root-directory: .
         arguments: assembleDebug
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: app-debug
-        path: ${{ env.PROJECT_DIR }}/app/build/outputs/apk/debug/app-debug.apk
+        path: app/build/outputs/apk/debug/app-debug.apk
