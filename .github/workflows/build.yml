@@ -7,22 +7,20 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Prepare project
+    - name: Prepare project and detect dir
       shell: bash
       run: |
         set -euxo pipefail
         ls -la
-        ZIP="$(ls -1 *.zip 2>/dev/null | head -n1 || true)"
+        # Unzip nếu repo chỉ có 1 file zip
+        ZIP=$(ls -1 *.zip 2>/dev/null | head -n1 || true)
         if [ -n "$ZIP" ]; then unzip -qo "$ZIP"; fi
-        # Nếu settings.gradle nằm trong thư mục con thì dời ra root
-        if [ ! -f settings.gradle ] && [ ! -f settings.gradle.kts ]; then
-          CAND=$(find . -maxdepth 2 -type f \( -name settings.gradle -o -name settings.gradle.kts \) -printf '%h\n' | head -n1 || true)
-          if [ -n "$CAND" ] && [ "$CAND" != "." ]; then
-            shopt -s dotglob; mv "$CAND"/* .; rm -rf "$CAND"
-          fi
-        fi
-        test -f settings.gradle -o -f settings.gradle.kts
-        test -d app
+        # Tìm thư mục có settings.gradle
+        CAND=$(find . -maxdepth 2 -type f \( -name settings.gradle -o -name settings.gradle.kts \) -printf '%h\n' | head -n1 || true)
+        if [ -z "$CAND" ]; then echo "Không thấy settings.gradle"; exit 1; fi
+        echo "PROJECT_DIR=$CAND" >> "$GITHUB_ENV"
+        echo "Project dir: $CAND"
+        ls -la "$CAND"
 
     - uses: actions/setup-java@v4
       with:
@@ -40,17 +38,17 @@ jobs:
       uses: gradle/gradle-build-action@v3
       with:
         gradle-version: 8.6
-        build-root-directory: .
+        build-root-directory: ${{ env.PROJECT_DIR }}
         arguments: wrapper
 
     - name: Build debug APK
       uses: gradle/gradle-build-action@v3
       with:
-        build-root-directory: .
+        build-root-directory: ${{ env.PROJECT_DIR }}
         arguments: assembleDebug
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: app-debug
-        path: app/build/outputs/apk/debug/app-debug.apk
+        path: ${{ env.PROJECT_DIR }}/app/build/outputs/apk/debug/app-debug.apk
