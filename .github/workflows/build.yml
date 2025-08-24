@@ -1,35 +1,58 @@
 name: Build APK
 on: workflow_dispatch
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Unzip project
+
+    # Giải nén ZIP nếu có, rồi đưa source ra root
+    - name: Prepare project
+      shell: bash
       run: |
-        unzip InventoryLite_Fixed.zip -d .
+        set -e
+        ls -la
+        ZIP=$(ls -1 *.zip 2>/dev/null | head -n1 || true)
+        if [ -n "$ZIP" ]; then
+          unzip -qo "$ZIP"
+        fi
+        if [ -d InventoryLiteFixed ]; then
+          shopt -s dotglob
+          mv InventoryLiteFixed/* .
+          rm -rf InventoryLiteFixed
+        fi
+        echo "After prepare:"; ls -la
+
     - uses: actions/setup-java@v4
       with:
         distribution: temurin
         java-version: '17'
+
     - uses: android-actions/setup-android@v3
+
     - name: Install SDK packages
       run: |
         yes | sdkmanager --licenses
         sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
-    - name: Generate Gradle wrapper
+
+    # Tạo Gradle wrapper bằng Gradle Build Action (không cần gradle/gradlew sẵn)
+    - name: Generate Gradle wrapper 8.6
       uses: gradle/gradle-build-action@v3
       with:
         gradle-version: 8.6
-        build-root-directory: InventoryLiteFixed
+        build-root-directory: .
         arguments: wrapper
+
+    # Build APK
     - name: Build debug APK
       uses: gradle/gradle-build-action@v3
       with:
-        build-root-directory: InventoryLiteFixed
+        build-root-directory: .
         arguments: assembleDebug
+
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: app-debug
-        path: InventoryLiteFixed/app/build/outputs/apk/debug/app-debug.apk
+        path: app/build/outputs/apk/debug/app-debug.apk
