@@ -7,19 +7,19 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Debug workflow file
+    # Hiển thị để chắc chắn đang dùng file mới
+    - name: Debug
       run: |
         pwd; ls -la
-        echo "Search for hard-coded dir:"; grep -R "InventoryLiteFixed" -n . || true
+        echo "grep InventoryLiteFixed:"; grep -R "InventoryLiteFixed" -n . || true
 
+    # Chuẩn bị project: unzip nếu có file zip ở root, dời source ra root
     - name: Prepare project
       shell: bash
       run: |
         set -euxo pipefail
-        # Unzip nếu repo đang chứa file zip
         ZIP=$(ls -1 *.zip 2>/dev/null | head -n1 || true)
         if [ -n "$ZIP" ]; then unzip -qo "$ZIP"; fi
-        # Nếu settings.gradle nằm trong thư mục con thì đưa ra root
         CAND=$(find . -maxdepth 2 -type f \( -name settings.gradle -o -name settings.gradle.kts \) -printf '%h\n' | head -n1 || true)
         if [ -n "$CAND" ] && [ "$CAND" != "." ]; then
           shopt -s dotglob; mv "$CAND"/* .; rm -rf "$CAND"
@@ -40,18 +40,19 @@ jobs:
         yes | sdkmanager --licenses
         sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
 
-    - name: Generate Gradle wrapper 8.6
-      uses: gradle/gradle-build-action@v3
-      with:
-        gradle-version: 8.6
-        build-root-directory: .
-        arguments: wrapper
+    # Cài Gradle 8.6 thủ công, tránh action setup-gradle gây lệch cwd
+    - name: Install Gradle 8.6
+      run: |
+        curl -L https://services.gradle.org/distributions/gradle-8.6-bin.zip -o gradle.zip
+        unzip -q gradle.zip
+        echo "$PWD/gradle-8.6/bin" >> $GITHUB_PATH
+        gradle -v
+
+    - name: Generate wrapper
+      run: gradle wrapper --gradle-version 8.6
 
     - name: Build debug APK
-      uses: gradle/gradle-build-action@v3
-      with:
-        build-root-directory: .
-        arguments: assembleDebug
+      run: ./gradlew --no-daemon assembleDebug
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
