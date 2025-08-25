@@ -7,21 +7,55 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    # 1) Tìm đúng thư mục dự án (có settings.gradle)
     - name: Detect project dir
       id: detect
       shell: bash
       run: |
         set -euxo pipefail
-        ls -la
-        # Unzip nếu repo đang chứa file .zip ở root
         ZIP=$(ls -1 *.zip 2>/dev/null | head -n1 || true)
         if [ -n "$ZIP" ]; then unzip -qo "$ZIP"; fi
-        # Tìm settings.gradle(.kts)
-        PROJ=$(find . -maxdepth 2 -type f \( -name settings.gradle -o -name settings.gradle.kts \) -printf '%h\n' | head -n1 || true)
-        if [ -z "$PROJ" ]; then echo "No settings.gradle found"; exit 1; fi
+        PROJ=$(find . -maxdepth 2 -type f \( -name settings.gradle -o -name settings.gradle.kts \) -printf '%h\n' | head -n1)
         echo "PROJECT_DIR=$PROJ" >> "$GITHUB_ENV"
-        echo "Project dir: $PROJ"; ls -la "$PROJ"
+        ls -la "$PROJ"
+
+    # Patch: thêm theme + launcher icons nếu thiếu
+    - name: Patch missing Android resources
+      shell: bash
+      run: |
+        set -euxo pipefail
+        cd "$PROJECT_DIR"
+        mkdir -p app/src/main/res/{values,mipmap-anydpi-v26,drawable}
+        # theme
+        cat > app/src/main/res/values/themes.xml <<'XML'
+        <resources xmlns:tools="http://schemas.android.com/tools">
+          <style name="Theme.InventoryLite" parent="Theme.Material3.DayNight.NoActionBar">
+            <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
+          </style>
+        </resources>
+        XML
+        # colors for launcher bg
+        cat > app/src/main/res/values/colors.xml <<'XML'
+        <resources>
+          <color name="ic_launcher_background">#FFFFFF</color>
+        </resources>
+        XML
+        # adaptive icons
+        cat > app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml <<'XML'
+        <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+          <background android:drawable="@color/ic_launcher_background"/>
+          <foreground android:drawable="@drawable/ic_launcher_foreground"/>
+        </adaptive-icon>
+        XML
+        cp app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml
+        # simple vector foreground
+        cat > app/src/main/res/drawable/ic_launcher_foreground.xml <<'XML'
+        <vector xmlns:android="http://schemas.android.com/apk/res/android"
+            android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
+          <path android:fillColor="#000000" android:pathData="M20,20h68v68h-68z"/>
+          <path android:fillColor="#FFFFFF" android:pathData="M34,54h40v8h-40z"/>
+        </vector>
+        XML
+        echo "Patched resources."
 
     - uses: actions/setup-java@v4
       with:
@@ -35,7 +69,6 @@ jobs:
         yes | sdkmanager --licenses
         sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
 
-    # 2) Cài Gradle 8.6 thủ công để tránh cwd sai
     - name: Install Gradle 8.6
       run: |
         curl -L https://services.gradle.org/distributions/gradle-8.6-bin.zip -o gradle.zip
@@ -43,19 +76,16 @@ jobs:
         echo "$PWD/gradle-8.6/bin" >> $GITHUB_PATH
         gradle -v
 
-    # 3) Generate wrapper trong đúng thư mục dự án
     - name: Generate wrapper
       working-directory: ${{ env.PROJECT_DIR }}
       run: gradle wrapper --gradle-version 8.6
 
-    # 4) Build APK + log chi tiết
     - name: Build debug APK
       working-directory: ${{ env.PROJECT_DIR }}
       run: |
         echo "org.gradle.jvmargs=-Xmx3g -Dkotlin.daemon.jvm.options=-Xmx2g" >> gradle.properties
-        ./gradlew --no-daemon --stacktrace --info --refresh-dependencies assembleDebug
+        ./gradlew --no-daemon --stacktrace --info assembleDebug
 
-    # 5) Upload APK và log để soi khi fail
     - name: Upload APK
       if: always()
       uses: actions/upload-artifact@v4
