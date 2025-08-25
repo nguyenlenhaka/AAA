@@ -7,26 +7,21 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    # Hiển thị để chắc chắn đang dùng file mới
-    - name: Debug
-      run: |
-        pwd; ls -la
-        echo "grep InventoryLiteFixed:"; grep -R "InventoryLiteFixed" -n . || true
-
-    # Chuẩn bị project: unzip nếu có file zip ở root, dời source ra root
-    - name: Prepare project
+    # 1) Tìm đúng thư mục dự án (có settings.gradle)
+    - name: Detect project dir
+      id: detect
       shell: bash
       run: |
         set -euxo pipefail
+        ls -la
+        # Unzip nếu repo đang chứa file .zip ở root
         ZIP=$(ls -1 *.zip 2>/dev/null | head -n1 || true)
         if [ -n "$ZIP" ]; then unzip -qo "$ZIP"; fi
-        CAND=$(find . -maxdepth 2 -type f \( -name settings.gradle -o -name settings.gradle.kts \) -printf '%h\n' | head -n1 || true)
-        if [ -n "$CAND" ] && [ "$CAND" != "." ]; then
-          shopt -s dotglob; mv "$CAND"/* .; rm -rf "$CAND"
-        fi
-        test -f settings.gradle -o -f settings.gradle.kts
-        test -d app
-        ls -la
+        # Tìm settings.gradle(.kts)
+        PROJ=$(find . -maxdepth 2 -type f \( -name settings.gradle -o -name settings.gradle.kts \) -printf '%h\n' | head -n1 || true)
+        if [ -z "$PROJ" ]; then echo "No settings.gradle found"; exit 1; fi
+        echo "PROJECT_DIR=$PROJ" >> "$GITHUB_ENV"
+        echo "Project dir: $PROJ"; ls -la "$PROJ"
 
     - uses: actions/setup-java@v4
       with:
@@ -40,7 +35,7 @@ jobs:
         yes | sdkmanager --licenses
         sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
 
-    # Cài Gradle 8.6 thủ công, tránh action setup-gradle gây lệch cwd
+    # 2) Cài Gradle 8.6 thủ công để tránh cwd sai
     - name: Install Gradle 8.6
       run: |
         curl -L https://services.gradle.org/distributions/gradle-8.6-bin.zip -o gradle.zip
@@ -48,14 +43,31 @@ jobs:
         echo "$PWD/gradle-8.6/bin" >> $GITHUB_PATH
         gradle -v
 
+    # 3) Generate wrapper trong đúng thư mục dự án
     - name: Generate wrapper
+      working-directory: ${{ env.PROJECT_DIR }}
       run: gradle wrapper --gradle-version 8.6
 
+    # 4) Build APK + log chi tiết
     - name: Build debug APK
-      run: ./gradlew --no-daemon assembleDebug
+      working-directory: ${{ env.PROJECT_DIR }}
+      run: |
+        echo "org.gradle.jvmargs=-Xmx3g -Dkotlin.daemon.jvm.options=-Xmx2g" >> gradle.properties
+        ./gradlew --no-daemon --stacktrace --info --refresh-dependencies assembleDebug
 
+    # 5) Upload APK và log để soi khi fail
     - name: Upload APK
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: app-debug
-        path: app/build/outputs/apk/debug/app-debug.apk
+        path: ${{ env.PROJECT_DIR }}/app/build/outputs/apk/debug/app-debug.apk
+
+    - name: Upload Gradle logs
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: gradle-logs
+        path: |
+          ~/.gradle/daemon/*/daemon-*.log
+          ${{ env.PROJECT_DIR }}/**/build/reports/**
