@@ -1,0 +1,441 @@
+[
+ {
+   "Tên hiển thị": "Báo cáo này được tổng hợp dành cho:",
+   "Mã trường": "TEN DAI LY"
+ },
+ {
+   "Tên hiển thị": "KV|MS",
+   "Mã trường": "KV|MS"
+ },
+ {
+   "Tên hiển thị": "Ngày gia nhập:",
+   "Mã trường": "JOIN DATE"
+ },
+ {
+   "Tên hiển thị": "Tháng làm việc:",
+   "Mã trường": "WORK MNTHS"
+ },
+ {
+   "Tên hiển thị": "Chức danh:",
+   "Mã trường": "Chức danh"
+ },
+ {
+   "Tên hiển thị": "Ngày hiệu lực:",
+   "Mã trường": "Ngày hiệu lực Chức danh"
+ },
+ {
+   "Tên hiển thị": "Nhóm đại lý:",
+   "Mã trường": "Nhóm Đại lý"
+ },
+ {
+   "Tên hiển thị": "Danh hiệu Manulife Pro chính thức:",
+   "Mã trường": "PRO.DH CHINH THUC"
+ },
+ {
+   "Tên hiển thị": "Chính thức từ:",
+   "Mã trường": "PRO.BAT DAU"
+ },
+ {
+   "Tên hiển thị": "P13 Cá nhân:",
+   "Mã trường": "TLDTHD cá nhân"
+ },
+ {
+   "Tên hiển thị": "P13 Toàn nhánh:",
+   "Mã trường": "TLDTHD toàn nhánh"
+ },
+ {
+   "Tên hiển thị": "P13 cấp1:",
+   "Mã trường": "TLDTHD cấp 1"
+ },
+ {
+   "Tên hiển thị": "Số liệu cập nhật đến ngày:",
+   "Mã trường": "NGAY CHOT DATA"
+ },
+ {
+   "Tên hiển thị": "Đơn vị tiền tệ: Nghìn VND",
+   "Mã trường": ""
+ },
+ {
+   "Tên hiển thị": "Số hợp đồng thực cấp:",
+   "Mã trường": "MTD.CC CAP"
+ },
+ {
+   "Tên hiển thị": "Doanh thu FYP thực cấp:",
+   "Mã trường": "MTD.FYP CAP"
+ },
+ {
+   "Tên hiển thị": "Số lượng Đại lý mới tuyển dụng:",
+   "Mã trường": "RECRUIT T"
+ },
+ {
+   "Tên hiển thị": "Tổng số hợp đồng (nộp mới trong tháng):",
+   "Mã trường": "MTD.CC NOP"
+ },
+ {
+   "Tên hiển thị": "Tổng doanh thu FYP (nộp mới trong tháng):",
+   "Mã trường": "MTD.FYP NOP"
+ },
+ {
+   "Tên hiển thị": "Tổng số hợp đồng (thực cấp trong tháng):",
+   "Mã trường": "MTD.CC CAP"
+ },
+ {
+   "Tên hiển thị": "Tổng doanh thu FYP (thực cấp trong tháng):",
+   "Mã trường": "MTD.FYP CAP"
+ },
+ {
+   "Tên hiển thị": "Danh hiệu chính thức hiện tại:",
+   "Mã trường": "PRO.DH CHINH THUC"
+ },
+ {
+   "Tên hiển thị": "Tháng bắt đầu:",
+   "Mã trường": "PRO.BAT DAU"
+ },
+ {
+   "Tên hiển thị": "Tháng kết thúc:",
+   "Mã trường": "PRO.KET THUC"
+ },
+ {
+   "Tên hiển thị": "Danh hiệu dùng để xét thưởng:",
+   "Mã trường": "PRO.DH XET THUONG"
+ },
+ {
+   "Tên hiển thị": "FYP phát sinh tính thưởng:",
+   "Mã trường": "PRO.FYP HIEN TAI"
+ },
+ {
+   "Tên hiển thị": "Mức thưởng tạm đạt:",
+   "Mã trường": "PRO.THUONG TAM DAT"
+ },
+ {
+   "Tên hiển thị": "Cần thêm để đạt mức thưởng tiếp theo:",
+   "Mã trường": "PRO.FYP CAN TANG THUONG"
+ },
+ {
+   "Tên hiển thị": "Mức thưởng tiếp theo:",
+   "Mã trường": "PRO.THUONG TIEP THEO"
+ },
+ {
+   "Tên hiển thị": "Tiến độ thăng hạng danh hiệu:",
+   "Mã trường": "PRO % THANG HANG"
+ },
+ {
+   "Tên hiển thị": "Kết quả tại tháng T-2:",
+   "Mã trường": "PRO.DH TAM TINH T-2"
+ },
+ {
+   "Tên hiển thị": "Kết quả tại tháng T-1:",
+   "Mã trường": "PRO.DH TAM TINH T-1"
+ },
+ {
+   "Tên hiển thị": "FYP cần thêm để thăng hạng:",
+   "Mã trường": "PRO.UP FYP CAN THEM"
+ },
+ {
+   "Tên hiển thị": "CC cần thêm để để thăng hạng:",
+   "Mã trường": "PRO.UP CC CAN THEM"
+ },
+ {
+   "Tên hiển thị": "Số tháng có hoạt động cần thêm:",
+   "Mã trường": "PRO.UP THANG CAN THEM"
+ },
+ {
+   "Tên hiển thị": "Tỷ lệ P13 cần thêm để đạt danh hiệu:",
+   "Mã trường": "PRO.UP P13 CAN THEM"
+ },
+ {
+   "Tên hiển thị": "Kết quả xét duy trì danh hiệu:",
+   "Mã trường": "PRO.KQ DUY TRI"
+ },
+ {
+   "Tên hiển thị": "Danh hiệu tạm tính cao nhất:",
+   "Mã trường": "PRO.DH TAM TINH CAO NHAT"
+ },
+ {
+   "Tên hiển thị": "Tiến độ duy trì danh hiệu:",
+   "Mã trường": "PRO % MOC"
+ },
+ {
+   "Tên hiển thị": "Giai đoạn đánh giá:",
+   "Mã trường": "PRO.GD MOC"
+ },
+ {
+   "Tên hiển thị": "FYP đã đạt so với yêu cầu:",
+   "Mã trường": "PRO.MOC FYP"
+ },
+ {
+   "Tên hiển thị": "Số tháng có hoạt động so với yêu cầu:",
+   "Mã trường": "PRO.MOC THANG HĐ"
+ },
+ {
+   "Tên hiển thị": "Cảnh báo 3 tháng cuối kỳ xét:",
+   "Mã trường": "PRO.MOC 3 THANG"
+ },
+ {
+   "Tên hiển thị": "cho tiến độ của danh hiệu",
+   "Mã trường": "MDRT.DH TIEP THEO"
+ },
+ {
+   "Tên hiển thị": "Yêu cầu FYP tiến độ quý hiện tại:",
+   "Mã trường": "MDRT.FYP Y/C QUY HT"
+ },
+ {
+   "Tên hiển thị": "Tiến độ quý hiện tại đã đạt:",
+   "Mã trường": "MDRT.TIEN DO QUY"
+ },
+ {
+   "Tên hiển thị": "FYP thực đạt (YTD):",
+   "Mã trường": "MDRT.FYP CAP"
+ },
+ {
+   "Tên hiển thị": "FYP cần thêm để đạt tiến độ quý hiện tại:",
+   "Mã trường": "MDRT.FYP CAN DAT TD QUY"
+ },
+ {
+   "Tên hiển thị": "FYP cần thêm để đạt danh hiệu MDRT+:",
+   "Mã trường": "MDRT.FYP CAN DAT DH"
+ },
+ {
+   "Tên hiển thị": "FYP phát sinh trong thời gian thi đua:",
+   "Mã trường": "JPAN.FYP PHAT SINH"
+ },
+ {
+   "Tên hiển thị": "FYP được x2 (15-31/8):",
+    "Mã trường": "JPAN.FYP x2"
+ },
+ {
+   "Tên hiển thị": "Tổng FYP tính thi đua:",
+   "Mã trường": "JPAN.FYP THI DUA"
+ },
+ {
+   "Tên hiển thị": "Tổng FYP cần thêm để đạt thi đua:",
+   "Mã trường": "JPAN.FYP CAN DAT"
+ },
+ {
+   "Tên hiển thị": "Tỷ lệ P13 hiện tại:",
+   "Mã trường": "JPAN.P13"
+ },
+ {
+   "Tên hiển thị": "Số lượng vé đạt tạm tính:",
+   "Mã trường": "JPAN.DAT VE"
+ },
+ {
+   "Tên hiển thị": "Tổng số CC thực cấp (YTD):",
+   "Mã trường": "FC.FC CC YTD"
+ },
+ {
+   "Tên hiển thị": "Tổng FYP phát sinh (YTD):",
+   "Mã trường": "FC.FC FYP YTD"
+ },
+ {
+   "Tên hiển thị": "Số lượng tuyển dụng trực tiếp tháng hiện tại:",
+   "Mã trường": "RECRUIT T"
+ },
+ {
+   "Tên hiển thị": "Số lượng tuyển dụng trực tiếp active M0:",
+   "Mã trường": "RECRUIT ACT T"
+ },
+ {
+   "Tên hiển thị": "Tiến độ thăng lên UM (đối với FA):",
+   "Mã trường": "UP % FA TO UM"
+ },
+ {
+   "Tên hiển thị": "Vị trí thăng cấp:",
+   "Mã trường": "UP.TC LEN"
+ },
+ {
+   "Tên hiển thị": "Kết quả đánh giá:",
+   "Mã trường": "UP.KQ DG"
+ },
+ {
+   "Tên hiển thị": "Tiềm năng thăng cấp:",
+   "Mã trường": "UP.TIEM NANG TC UM"
+ },
+ {
+   "Tên hiển thị": "SBW:",
+   "Mã trường": "UP.SBW"
+ },
+ {
+   "Tên hiển thị": "MS:",
+   "Mã trường": "UP.MS"
+ },
+ {
+   "Tên hiển thị": "LS:",
+   "Mã trường": "UP.LS"
+ },
+ {
+   "Tên hiển thị": "COACHING:",
+   "Mã trường": "UP.COACHING"
+ },
+ {
+   "Tên hiển thị": "Số lượng NRA với 1CC & 4tr FYC cần thêm:",
+   "Mã trường": "UP.CAN TD ACT 4TR FYC L3M"
+ },
+ {
+   "Tên hiển thị": "2A Số lượng đại lý còn làm việc Whole team cần thêm:",
+   "Mã trường": "UP.CAN CA WT"
+ },
+ {
+   "Tên hiển thị": "2B Số lượng đại lý còn làm việc và có ≥ 15tr FYC L3M cần thêm:",
+   "Mã trường": "UP.CAN CA 15TR L3M"
+ },
+ {
+   "Tên hiển thị": "Số lượng UM+ báo cáo trực tiếp cần thêm:",
+   "Mã trường": "UP.CAN UM+TT"
+ },
+ {
+   "Tên hiển thị": "Nguồn sản xuất cần thêm:",
+   "Mã trường": "UP.CAN NGUON SX"
+ },
+ {
+   "Tên hiển thị": "FYC Whole team L6M sau luật 50% cần thêm:",
+   "Mã trường": "UP.CAN FYC WT L6M"
+ },
+ {
+   "Tên hiển thị": "Đánh giá từ",
+   "Mã trường": "MOC.FROM"
+ },
+ {
+   "Tên hiển thị": "đến",
+   "Mã trường": "MOC.TO"
+ },
+ {
+   "Tên hiển thị": "của kỳ đánh giá ngày",
+   "Mã trường": "MOC.IN"
+ },
+ {
+   "Tên hiển thị": "Chức danh hiện tại:",
+   "Mã trường": "MOC.RANK"
+ },
+ {
+   "Tên hiển thị": "Tháng tại chức:",
+   "Mã trường": "MOC.TAI VI"
+ },
+ {
+   "Tên hiển thị": "Kết quả đánh giá tạm tính (Y/N):",
+   "Mã trường": "MOC.KQ TAM TINH"
+ },
+ {
+   "Tên hiển thị": "Số lượng NRA với 1CC & 4tr FYC cần thêm:",
+   "Mã trường": "MOC.CAN TD ACT 4TR L6M"
+ },
+ {
+   "Tên hiển thị": "Số lượng UM+ báo cáo trực tiếp cần thêm:",
+   "Mã trường": "MOC.CAN UM+ TT"
+ },
+ {
+   "Tên hiển thị": "FYP Whole team L6M sau luật 50% cần thêm:",
+   "Mã trường": "MOC.CAN FYC WT L6M"
+ },
+ {
+   "Tên hiển thị": "Tỷ lệ duy trì P13 cần thêm:",
+   "Mã trường": "MOC.CAN P13 WT"
+ },
+ {
+   "Tên hiển thị": "Danh hiệu chính thức hiện tại:",
+   "Mã trường": "MBA.DH CT HIEN TAI"
+ },
+ {
+   "Tên hiển thị": "Tiềm năng thăng hạng (FYC ≥ 80% yêu cầu hạn tiếp theo):",
+   "Mã trường": "MBA.TIEM NANG 80%FYC"
+ },
+ {
+   "Tên hiển thị": "Số lượng đại lý đạt chuẩn trong quý:",
+   "Mã trường": "MBA.TH DL DAT CHUAN TRONG QUY"
+ },
+ {
+   "Tên hiển thị": "Số lượng đại lý đạt chuẩn trong 2 quý:",
+   "Mã trường": "MBA.TH DL DAT CHUAN 2 QUY"
+ },
+ {
+   "Tên hiển thị": "FYC cá nhân UM+ và ĐL trực tiếp L12M sau luật 50%:",
+   "Mã trường": "MBA.TH FYC TO TT SAU 50"
+ },
+ {
+   "Tên hiển thị": "Số UM+ mới thăng cấp L12M:",
+   "Mã trường": "MBA.TH UM+ MOI L12M"
+ },
+ {
+   "Tên hiển thị": "P13 cấp báo cáo trực tiếp:",
+   "Mã trường": "MBA.TH P13 BCTT"
+ },
+ {
+   "Tên hiển thị": "Danh hiệu MBA Pro tạm tính theo kết quả xét thăng hạng:",
+   "Mã trường": "MBA.TH DH TAM TINH QUY SAU"
+ },
+ {
+   "Tên hiển thị": "Kết quả xét duy trì tạm tính cho danh hiệu MBA Pro hiện tại:",
+   "Mã trường": "MBA.KQ DT DH HTAI"
+ },
+ {
+   "Tên hiển thị": "Số quý liên tục giữ danh hiệu MBA Pro hiện tại:",
+   "Mã trường": "MBA.DT SO QUY LIEN TUC"
+ },
+ {
+   "Tên hiển thị": "Số lượng Manulife Pro có sản xuất trong quý:",
+   "Mã trường": "MBA.SO MANPRO ACT TRONG QUY"
+ },
+ {
+   "Tên hiển thị": "Danh hiệu tạm tính quý sau, sau khi xét thăng hạng & duy trì:",
+   "Mã trường": "MBA.DH TAM TINH QUY SAU"
+ },
+ {
+   "Tên hiển thị": "Tổng CC phát sinh trong tháng của bản thân UM+ (A):",
+   "Mã trường": "OTEAM.CC UM+"
+ },
+ {
+   "Tên hiển thị": "Tổng FYP phát sinh trong tháng của bản thân UM+ (A):",
+   "Mã trường": "OTEAM.FYP UM+"
+ },
+ {
+   "Tên hiển thị": "Số NRA có ≥1CC và 15tr FYP L3M của bản thân UM+(A):",
+   "Mã trường": "OTEAM.TDTT ACT"
+ },
+ {
+   "Tên hiển thị": "FYP của bản thân UM+ (A) và nhóm trực tiếp sau luật 50%:",
+   "Mã trường": "OTEAM.TONG FYP TT"
+ },
+ {
+   "Tên hiển thị": "FYP của bản thân UM+ (B) báo cáo trực tiếp cho UM+ (A):",
+   "Mã trường": "OTEAM.FYP UM+ MOI"
+ },
+ {
+   "Tên hiển thị": "Tổng FYP sau luật 50% dùng để tính thưởng (cấp UM):(1)",
+   "Mã trường": "OTEAM.TONG FYP SAU LUAT XET THUONG"
+ },
+ {
+   "Tên hiển thị": "Tổng FYP WT trước luật 50% (cấp SUM+):",
+   "Mã trường": "OTEAM.FYP WT TRUOC LUAT"
+ },
+ {
+   "Tên hiển thị": "Tổng FYP WT sau luật 50% để tính thưởng (cấp SUM+):(2)",
+   "Mã trường": "OTEAM.FYP WT SAU LUAT"
+ },
+ {
+   "Tên hiển thị": "Y/c về tổng FYP:",
+   "Mã trường": "OTEAM.Y/C TONG FYP"
+ },
+ {
+   "Tên hiển thị": "Y/c về bán cá nhân:",
+   "Mã trường": "OTEAM.Y/C SX CA NHAN"
+ },
+ {
+   "Tên hiển thị": "Y/c về tuyển có active:",
+   "Mã trường": "OTEAM.Y/C TDTT ACT"
+ },
+ {
+   "Tên hiển thị": "Kết quả đạt thưởng thi đua (Y/N):",
+   "Mã trường": "OTEAM.DAT THUONG"
+ },
+ {
+   "Tên hiển thị": "Tỷ lệ P13:",
+   "Mã trường": "OTEAM.P13"
+ },
+ {
+   "Tên hiển thị": "Hệ số nhân TLDTHD:",
+   "Mã trường": "OTEAM.HE SO THUONG"
+ },
+ {
+   "Tên hiển thị": "Thưởng dự tính sau khi đã nhân hệ số TLDTHD:",
+   "Mã trường": "OTEAM.TIEN THUONG"
+ }]
